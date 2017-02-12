@@ -38,14 +38,14 @@ function getDueTimes() {
 
       // resolve the promise: specifically, return the times
       const icon = "i996"; // our bus icon
-      const data = "
+      const data = 
 	  {"frames": [
         {
             "text": "Traffic",
             "icon": "a7267"
         }
     ]
-}"
+	}
       resolve(data);
     });
   });
