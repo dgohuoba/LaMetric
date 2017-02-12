@@ -21,7 +21,7 @@ function getDueTimes() {
   return new Promise((resolve, reject) => {
     // make a GET request to get a page of the next due buses
     request({
-      url: 'http://m.buses.co.uk/brightonbuses/operatorpages/mobilesite/stop.aspx?stopid=6979&device=&s=50&d=&stopcode=&source=siri'
+      url: 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=4194%20Fairmeadow%20Dr,%20Round%20Rock,%20TX%2078665&destinations=717%20E%20Parmer%20Ln,%20Austin,%20TX%2078753&key=AIzaSyBn_KKU3YD0YfACFCb_Trm-ld03iupFFlc'
     }, (error, res, body) => {
       // if there was something wrong with the request, print it
       // out and exit the function
@@ -29,21 +29,23 @@ function getDueTimes() {
         return reject(error);
       }
 
-      // …otherwise, load the HTML into Cheerio, which give
-      // us jQuery-like access
-      const $ = cheerio.load(body);
 
       // now query the DOM for the times (bespoke to your markup)
       // and return just the text for each of those nodes, note
       // that to get a _real_ array back, I have to use `.get()`
       // at the end.
-      const times = $('.colDepartureTime').map((i, el) => {
-        return $(el).text();
-      }).get();
+      const times = 10;
 
       // resolve the promise: specifically, return the times
       const icon = "i996"; // our bus icon
-      const data = { frames: times.map(text => ({ text, icon })) };
+      const data = "
+	  {"frames": [
+        {
+            "text": "Traffic",
+            "icon": "a7267"
+        }
+    ]
+}"
       resolve(data);
     });
   });
